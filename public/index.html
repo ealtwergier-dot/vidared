@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VidaRed — Red Nacional de Donantes · Argentina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rojo:#C0392B;--rojo-v:#E74C3C;--rojo-l:#FDECEA;--rojo-m:#96281B;
+  --crema:#FDF6F0;--calido:#F5E6D8;--dark:#1A0A08;
+  --muted:#7A5C55;--border:#E8D5CE;--card:#FFFFFF;
+  --ok:#27AE60;--warn:#E67E22;
+}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--dark)}
+.fk{font-family:'Fredoka One','Arial Rounded MT Bold',Arial,sans-serif}
+
+/* ── NAV ── */
+nav{
+  background:var(--dark);height:58px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 1.25rem;
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 2px 20px rgba(26,10,8,.4);
+}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-drop svg{width:28px;height:34px;display:block}
+.brand-name{font-family:'Fredoka One',sans-serif;font-size:1.2rem;color:white;letter-spacing:.5px}
+.brand-name span{color:var(--rojo-v)}
+.nav-tabs{display:flex;gap:2px}
+.nt{background:none;border:none;color:#A08080;padding:6px 12px;
+  font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;
+  border-radius:7px;transition:all .18s;white-space:nowrap}
+.nt:hover{color:white;background:rgba(255,255,255,.1)}
+.nt.on{color:white;background:var(--rojo)}
+.nav-r{display:flex;align-items:center;gap:8px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--rojo-v);
+  display:flex;align-items:center;justify-content:center;
+  color:white;font-size:12px;font-weight:600;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:transform .15s}
+.av:hover{transform:scale(1.08)}
+.nb{background:none;border:none;color:#A08080;cursor:pointer;
+  font-size:15px;position:relative;padding:4px;transition:color .15s}
+.nb:hover{color:white}
+.nd{width:7px;height:7px;background:var(--rojo-v);border-radius:50%;
+  position:absolute;top:1px;right:1px;border:1.5px solid var(--dark);
+  animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ── SECTIONS ── */
+section{display:none;padding:1.5rem;min-height:calc(100vh - 58px);animation:fadeIn .25s ease}
+section.vis{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── DASHBOARD ── */
+.hero{
+  background:linear-gradient(135deg,var(--dark) 0%,#3D1A15 100%);
+  border-radius:16px;padding:1.5rem 2rem;margin-bottom:1.25rem;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(192,57,43,.22)}
+.hero::after{content:'';position:absolute;right:60px;bottom:-50px;width:110px;height:110px;border-radius:50%;background:rgba(192,57,43,.13)}
+.hero-t h2{font-family:'Fraunces',serif;font-size:1.5rem;color:white;margin-bottom:5px;position:relative;z-index:1}
+.hero-t p{color:#C9A09A;font-size:12px;position:relative;z-index:1}
+.hero-days .num{font-family:'Fraunces',serif;font-size:3.2rem;color:var(--rojo-v);line-height:1;position:relative;z-index:1;text-align:right}
+.hero-days small{color:#C9A09A;font-size:10px;display:block;text-align:right;position:relative;z-index:1}
+
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.25rem}
+.sc{background:var(--card);border-radius:12px;padding:1rem;border:1px solid var(--border);transition:box-shadow .18s}
+.sc:hover{box-shadow:0 4px 16px rgba(192,57,43,.08)}
+.sc .lb{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.sc .vl{font-family:'Fraunces',serif;font-size:1.7rem;color:var(--dark)}
+.sc .bx{display:inline-block;background:var(--rojo-l);color:var(--rojo);padding:2px 8px;border-radius:20px;font-size:10px;margin-top:4px}
+
+.ag{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:1.25rem}
+.ac{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:1.125rem;cursor:pointer;transition:all .2s}
+.ac:hover{border-color:var(--rojo);transform:translateY(-2px);box-shadow:0 6px 24px rgba(192,57,43,.12)}
+.ac .ico{width:40px;height:40px;border-radius:10px;background:var(--rojo-l);display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:18px}
+.ac h3{font-size:13px;font-weight:500;margin-bottom:3px}
+.ac p{font-size:11px;color:var(--muted)}
+
+.tl{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:1.25rem}
+.tl h3{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:1rem}
+.tli{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--calido)}
+.tli:last-child{border-bottom:none;padding-bottom:0}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.dot.ok{background:var(--ok)}.dot.nx{background:var(--rojo-v)}.dot.fu{background:var(--border)}
+.tlt{font-size:13px}.tlt strong{font-weight:500}.tlt span{color:var(--muted);font-size:11px;display:block;margin-top:1px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.875rem}
+.sh-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+
+/* ── MAP ── */
+.stit{font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:1rem}
+.mc{background:var(--card);border-radius:16px;border:1px solid var(--border);overflow:hidden;margin-bottom:1.25rem}
+.mv{width:100%;height:240px;background:#EAE6E0;position:relative}
+#mc{width:100%;height:100%;display:block}
+.mo{position:absolute;top:10px;left:10px;right:10px}
+.ms{width:100%;padding:9px 14px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;background:white;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.cl{padding:1rem}
+.ci{display:flex;align-items:center;gap:12px;padding:9px;border-radius:10px;cursor:pointer;transition:background .15s;margin-bottom:4px}
+.ci:hover{background:var(--calido)}.ci.sel{background:var(--rojo-l)}
+.cp{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.cp.h{background:#FDECEA;color:var(--rojo)}.cp.c{background:#EAF6FF;color:#2980B9}.cp.m{background:#EAFAF1;color:var(--ok)}
+.ci-i h4{font-size:13px;font-weight:500;margin-bottom:1px}.ci-i p{font-size:11px;color:var(--muted)}
+.cd{margin-left:auto;font-size:11px;color:var(--muted);background:var(--calido);padding:3px 9px;border-radius:12px;white-space:nowrap}
+.cc{background:var(--card);border-radius:14px;border:2px solid var(--rojo);padding:1.25rem}
+.cc h3{font-size:15px;font-weight:500;margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{background:var(--calido);color:var(--muted);font-size:11px;padding:3px 10px;border-radius:20px}
+.chip.g{background:#EAFAF1;color:#27AE60}
+.row2{display:flex;gap:8px;margin-top:10px}
+
+/* ── SCHEDULE ── */
+.sf{background:var(--card);border-radius:16px;border:1px solid var(--border);padding:1.5rem}
+.fr{margin-bottom:1rem}
+.fr label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px}
+.fr select,.fr input{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;background:white;color:var(--dark);outline:none;transition:border-color .18s}
+.fr select:focus,.fr input:focus{border-color:var(--rojo)}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:8px 0}
+.ch{text-align:center;font-size:10px;color:var(--muted);padding:4px;font-weight:500}
+.cd2{text-align:center;padding:7px 3px;border-radius:8px;font-size:12px;cursor:pointer;transition:all .15s}
+.cd2:hover{background:var(--calido)}.cd2.av{font-weight:500}
+.cd2.ss{background:var(--rojo);color:white}.cd2.dis{color:#DDD;cursor:default}
+.cd2.tod{border:1px solid var(--rojo);color:var(--rojo)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:1rem}
+.sl{padding:8px;border:1px solid var(--border);border-radius:8px;text-align:center;font-size:12px;cursor:pointer;transition:all .15s}
+.sl:hover{border-color:var(--rojo);color:var(--rojo)}.sl.on{background:var(--rojo);color:white;border-color:var(--rojo)}
+.sl.no{background:var(--calido);color:#CCC;cursor:default}
+.bp{width:100%;background:var(--rojo);color:white;border:none;padding:12px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;margin-top:1rem;transition:background .18s}
+.bp:hover{background:var(--rojo-v)}
+.bs{background:none;border:1px solid var(--border);color:var(--muted);padding:9px 16px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .18s}
+.bs:hover{border-color:var(--rojo);color:var(--rojo)}
+.info-box{background:var(--rojo-l);border-radius:10px;padding:1rem;margin-top:.5rem;font-size:13px;color:var(--rojo)}
+
+/* ── INTERVIEW ── */
+.ic{max-width:560px;margin:0 auto}
+.ih{text-align:center;margin-bottom:1.75rem}
+.ih p{color:var(--muted);font-size:14px;margin-top:6px}
+.pb{background:var(--calido);border-radius:20px;height:6px;margin-bottom:1.75rem;overflow:hidden}
+.pf{height:100%;background:var(--rojo);border-radius:20px;transition:width .4s}
+.qc{background:var(--card);border-radius:16px;border:1px solid var(--border);padding:1.75rem;margin-bottom:1rem}
+.qn{font-size:10px;color:var(--rojo);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:600}
+.qt{font-family:'Fraunces',serif;font-size:1.1rem;margin-bottom:1.25rem;line-height:1.45}
+.ao{display:flex;flex-direction:column;gap:8px}
+.op{padding:11px 14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;font-size:13px;transition:all .15s;display:flex;align-items:center;gap:10px}
+.op:hover{border-color:var(--rojo);background:var(--rojo-l)}
+.op.on{border-color:var(--rojo);background:var(--rojo-l);color:var(--rojo);font-weight:500}
+.op.on::before{content:'✓';font-weight:700}.op:not(.on)::before{content:'○';color:#DDD}
+.nb2{display:flex;gap:8px;margin-top:1rem}
+.rc{background:var(--card);border-radius:16px;border:1px solid var(--border);padding:2rem;text-align:center}
+.ri{width:64px;height:64px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px}
+.ri.a{background:#EAFAF1;color:var(--ok)}.ri.c{background:#FEF9E7;color:var(--warn)}.ri.n{background:var(--rojo-l);color:var(--rojo)}
+
+/* ── CHAT ── */
+#chat{padding:.75rem 1.5rem}
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 90px);max-height:640px;background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 32px rgba(26,10,8,.08)}
+.ch2{padding:1rem 1.25rem;border-bottom:1px solid var(--border);background:var(--dark);display:flex;align-items:center;gap:12px}
+.gotita-av{width:46px;height:46px;flex-shrink:0}
+.gotita-av svg{width:46px;height:46px;display:block}
+.ch2-info h4{color:white;font-family:'Fredoka One',sans-serif;font-size:16px;letter-spacing:.5px}
+.ch2-info p{color:#C9A09A;font-size:11px;margin-top:1px}
+.on-dot{width:8px;height:8px;background:#27AE60;border-radius:50%;margin-left:auto;box-shadow:0 0 5px #27AE60}
+.msgs{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.msgs::-webkit-scrollbar{width:4px}
+.msgs::-webkit-scrollbar-track{background:transparent}
+.msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.msg{max-width:82%;display:flex;flex-direction:column;gap:3px}
+.msg.u{align-self:flex-end;align-items:flex-end}
+.msg.b{align-self:flex-start;align-items:flex-start;display:flex;flex-direction:row;gap:8px;max-width:88%}
+.msg.b .msg-inner{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.bot-icon{width:26px;height:26px;flex-shrink:0;margin-top:2px}
+.bot-icon svg{width:26px;height:26px;display:block}
+.bbl{padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.55}
+.msg.u .bbl{background:var(--rojo);color:white;border-radius:14px 14px 3px 14px}
+.msg.b .bbl{background:var(--calido);color:var(--dark);border-radius:14px 14px 14px 3px}
+.mt{font-size:10px;color:var(--muted)}
+.typ{display:flex;gap:4px;padding:11px 14px}
+.td{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:boun 1.2s infinite}
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes boun{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.sugs{padding:8px 1.25rem;border-top:1px solid var(--border);display:flex;gap:6px;overflow-x:auto;flex-shrink:0}
+.sugs::-webkit-scrollbar{display:none}
+.sg2{white-space:nowrap;padding:6px 12px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;transition:all .15s;background:white;color:var(--muted)}
+.sg2:hover{border-color:var(--rojo);color:var(--rojo);background:var(--rojo-l)}
+.ci2{padding:10px 1.25rem;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
+.ci2 input{flex:1;padding:10px 15px;border:1px solid var(--border);border-radius:24px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color .18s}
+.ci2 input:focus{border-color:var(--rojo)}
+.sb{width:40px;height:40px;border-radius:50%;background:var(--rojo);border:none;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s}
+.sb:hover{background:var(--dark);transform:scale(1.05)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--dark);color:white;padding:10px 22px;border-radius:12px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+.toast.show{opacity:1}
+
+@media(max-width:600px){
+  .sg{grid-template-columns:repeat(2,1fr)}
+  .ag{grid-template-columns:1fr}
+  nav{padding:0 .75rem}
+  .nt{padding:5px 8px;font-size:11px}
+  .brand-name{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#">
+    <div class="brand-drop">
+      <svg viewBox="0 0 28 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 1C14 1 1 13 1 21C1 27.627 6.925 33 14 33C21.075 33 27 27.627 27 21C27 13 14 1Z" fill="#C0392B" stroke="#96281B" stroke-width="1.5"/>
+        <path d="M8 20C8 20 6 23 8 27" stroke="#E86060" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+        <ellipse cx="10" cy="17" rx="2.8" ry="4.5" fill="white" opacity="0.88"/>
+        <circle cx="10" cy="18" r="2.2" fill="#1A0808"/>
+        <circle cx="11" cy="16" r="0.9" fill="white"/>
+        <ellipse cx="18" cy="17" rx="2.8" ry="4.5" fill="white" opacity="0.88"/>
+        <circle cx="18" cy="18" r="2.2" fill="#1A0808"/>
+        <circle cx="19" cy="16" r="0.9" fill="white"/>
+        <path d="M10 24C11.8 27 16.2 27 18 24" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="8.5" cy="27" rx="4" ry="2.2" fill="#C82020" opacity="0.42"/>
+        <ellipse cx="19.5" cy="27" rx="4" ry="2.2" fill="#C82020" opacity="0.42"/>
+      </svg>
+    </div>
+    <span class="brand-name">Vida<span>Red</span></span>
+  </a>
+  <div class="nav-tabs">
+    <button class="nt on" onclick="go('dash')">Inicio</button>
+    <button class="nt" onclick="go('map')">Centros</button>
+    <button class="nt" onclick="go('sched')">Turno</button>
+    <button class="nt" onclick="go('iv')">Pre-entrevista</button>
+    <button class="nt" onclick="go('chat')">Gotita IA</button>
+  </div>
+  <div class="nav-r">
+    <button class="nb" onclick="toast('🩸 Recordatorio: tu próxima donación es en 12 días')">🔔<div class="nd"></div></button>
+    <div class="av">MG</div>
+  </div>
+</nav>
+
+<!-- DASHBOARD -->
+<section id="dash" class="vis">
+  <div class="hero">
+    <div class="hero-t">
+      <h2>Bienvenida, María 👋</h2>
+      <p>Grupo: O+ · 5 donaciones realizadas</p>
+    </div>
+    <div class="hero-days">
+      <div class="num">12</div>
+      <small>días para<br>tu próxima<br>donación</small>
+    </div>
+  </div>
+  <div class="sh"><span class="sh-l">Tu impacto</span></div>
+  <div class="sg">
+    <div class="sc"><div class="lb">Donaciones</div><div class="vl">5</div><div style="font-size:10px;color:var(--muted);margin-top:2px">últimos 3 años</div></div>
+    <div class="sc"><div class="lb">Vidas salvadas</div><div class="vl">15</div><div class="bx">estimado</div></div>
+    <div class="sc"><div class="lb">Próxima</div><div class="vl">12d</div><div style="font-size:10px;color:var(--muted);margin-top:2px">05 de mayo</div></div>
+  </div>
+  <div class="sh"><span class="sh-l">Acciones rápidas</span></div>
+  <div class="ag">
+    <div class="ac" onclick="go('sched')"><div class="ico">📅</div><h3>Agendar turno</h3><p>Reservá en el centro más cercano</p></div>
+    <div class="ac" onclick="go('iv')"><div class="ico">📋</div><h3>Pre-entrevista</h3><p>Verificá si estás apta para donar</p></div>
+    <div class="ac" onclick="go('map')"><div class="ico">📍</div><h3>Mapa de centros</h3><p>Centros de donación cercanos</p></div>
+    <div class="ac" onclick="go('chat')">
+      <div class="ico" style="background:none;padding:0">
+        <svg viewBox="0 0 40 40" width="40" height="40" fill="none">
+          <path d="M20 2C20 2 4 14 4 23C4 31.837 11.163 38 20 38C28.837 38 36 31.837 36 23C36 14 20 2Z" fill="#C0392B" stroke="#96281B" stroke-width="1.5"/>
+          <ellipse cx="14" cy="20" rx="3.2" ry="5" fill="white" opacity="0.9"/>
+          <ellipse cx="26" cy="20" rx="3.2" ry="5" fill="white" opacity="0.9"/>
+          <circle cx="14" cy="21" r="2.8" fill="#1A0808"/>
+          <circle cx="26" cy="21" r="2.8" fill="#1A0808"/>
+          <circle cx="15" cy="19" r="1.1" fill="white"/>
+          <circle cx="27" cy="19" r="1.1" fill="white"/>
+          <path d="M14 29C16.5 33 23.5 33 26 29" stroke="#96281B" stroke-width="2.2" stroke-linecap="round"/>
+          <ellipse cx="11" cy="31" rx="4.5" ry="2.8" fill="#C82020" opacity="0.42"/>
+          <ellipse cx="29" cy="31" rx="4.5" ry="2.8" fill="#C82020" opacity="0.42"/>
+        </svg>
+      </div>
+      <h3>Gotita IA</h3><p>Mitos y verdades sobre donación</p>
+    </div>
+  </div>
+  <div class="tl">
+    <h3>Historial reciente</h3>
+    <div class="tli"><div class="dot ok"></div><div class="tlt"><strong>Donación de sangre total</strong><span>12 feb 2025 · Hospital Italiano · 450ml</span></div></div>
+    <div class="tli"><div class="dot ok"></div><div class="tlt"><strong>Donación de plaquetas</strong><span>10 ago 2024 · Centro Médico Belgrano</span></div></div>
+    <div class="tli"><div class="dot nx"></div><div class="tlt"><strong>Próxima donación programada</strong><span>05 may 2025 · Hospital Italiano · 9:30hs</span></div></div>
+    <div class="tli"><div class="dot fu"></div><div class="tlt" style="color:var(--muted)"><strong>Recordatorio</strong><span>Podés registrarte como donante de médula ósea</span></div></div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map">
+  <div class="stit">Centros de donación</div>
+  <div class="mc">
+    <div class="mv">
+      <canvas id="mc"></canvas>
+      <div class="mo"><input class="ms" type="text" placeholder="🔍  Buscar por dirección o barrio..."></div>
+    </div>
+    <div class="cl"><div id="clist"></div></div>
+  </div>
+  <div id="ccrd"></div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="sched">
+  <div class="stit">Agendar turno</div>
+  <div class="sf">
+    <div class="fr"><label>Tipo de donación</label>
+      <select id="dtyp">
+        <option>Sangre total</option><option>Plaquetas (aféresis)</option>
+        <option>Plasma</option><option>Médula ósea (registro)</option>
+      </select>
+    </div>
+    <div class="fr"><label>Centro</label>
+      <select id="csel">
+        <option>Hospital Italiano — Palermo</option>
+        <option>Centro Médico Belgrano</option>
+        <option>Fundación Hematológica — Recoleta</option>
+        <option>Unidad Móvil — Plaza Italia</option>
+        <option>Hospital Rivadavia — Recoleta</option>
+      </select>
+    </div>
+    <div class="fr"><label>Seleccioná una fecha</label><div id="cal" class="cg"></div></div>
+    <div id="slrow" style="display:none">
+      <div class="fr" style="margin-top:.5rem"><label>Horario disponible</label><div class="slots" id="slgrid"></div></div>
+    </div>
+    <div id="confarea" style="display:none">
+      <div class="info-box"><strong>Recordá:</strong> Ayunar 4h antes, hidratarte bien y traer DNI.</div>
+      <button class="bp" onclick="confirmBook()">Confirmar turno</button>
+    </div>
+  </div>
+</section>
+
+<!-- INTERVIEW -->
+<section id="iv">
+  <div class="ic">
+    <div class="ih">
+      <div class="stit" style="text-align:center">Pre-entrevista virtual</div>
+      <p>Completá este cuestionario antes de tu donación para agilizar el proceso</p>
+    </div>
+    <div class="pb"><div class="pf" id="pf" style="width:0%"></div></div>
+    <div id="ivc"></div>
+    <div class="nb2" id="ivnav" style="display:none">
+      <button class="bs" onclick="prevQ()" id="pbtn">← Anterior</button>
+      <button class="bp" style="flex:1;margin:0" onclick="nextQ()" id="nbtn">Siguiente →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHAT -->
+<section id="chat">
+  <div class="chat-wrap">
+    <div class="ch2">
+      <div class="gotita-av">
+        <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ga" x1="0" y1="0" x2="0.35" y2="1">
+              <stop offset="0%" stop-color="#E84040"/>
+              <stop offset="100%" stop-color="#B22020"/>
+            </linearGradient>
+          </defs>
+          <path d="M23 2C23 2 4 17 4 28C4 37.941 12.611 44 23 44C33.389 44 42 37.941 42 28C42 17 23 2Z" fill="url(#ga)" stroke="#96281B" stroke-width="1.5"/>
+          <path d="M9 25C9 25 7 29 9 33" stroke="#E86060" stroke-width="2.5" stroke-linecap="round" opacity="0.38"/>
+          <ellipse cx="16" cy="23" rx="4" ry="6.5" fill="white" opacity="0.92"/>
+          <ellipse cx="30" cy="23" rx="4" ry="6.5" fill="white" opacity="0.92"/>
+          <circle cx="16" cy="24" r="3.5" fill="#1A0808"/>
+          <circle cx="30" cy="24" r="3.5" fill="#1A0808"/>
+          <circle cx="17.5" cy="22" r="1.4" fill="white"/>
+          <circle cx="31.5" cy="22" r="1.4" fill="white"/>
+          <path d="M15 33C17.5 37.5 28.5 37.5 31 33" stroke="#96281B" stroke-width="2.5" stroke-linecap="round"/>
+          <ellipse cx="12" cy="36" rx="5.5" ry="3.2" fill="#C82020" opacity="0.42"/>
+          <ellipse cx="34" cy="36" rx="5.5" ry="3.2" fill="#C82020" opacity="0.42"/>
+          <path d="M18 14C19.8 11 26.2 11 28 14" stroke="#E86060" stroke-width="1.5" stroke-linecap="round" opacity="0.32"/>
+          <g transform="translate(-6,22)">
+            <path d="M0,0 C-14,-5 -26,2 -26,14 C-26,22 -14,24 0,14Z" fill="url(#ga)" stroke="#96281B" stroke-width="1.5"/>
+            <path d="M0,14 C-14,28 -8,42 0,42 C6,42 10,34 8,24Z" fill="url(#ga)" stroke="#96281B" stroke-width="1.5"/>
+          </g>
+          <g transform="translate(52,22)">
+            <path d="M0,0 C14,-5 26,2 26,14 C26,22 14,24 0,14Z" fill="url(#ga)" stroke="#96281B" stroke-width="1.5"/>
+            <path d="M0,14 C14,28 8,42 0,42 C-6,42 -10,34 -8,24Z" fill="url(#ga)" stroke="#96281B" stroke-width="1.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="ch2-info">
+        <h4>Gotita</h4>
+        <p>Asistente IA de VidaRed · en línea</p>
+      </div>
+      <div class="on-dot"></div>
+    </div>
+    <div class="msgs" id="msgs">
+      <div class="msg b">
+        <div class="bot-icon">
+          <svg viewBox="0 0 26 26" fill="none"><defs><linearGradient id="gb" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0%" stop-color="#E84040"/><stop offset="100%" stop-color="#B22020"/></linearGradient></defs>
+          <path d="M13 1C13 1 2 9 2 15C2 21 7 25 13 25C19 25 24 21 24 15C24 9 13 1Z" fill="url(#gb)" stroke="#96281B" stroke-width="1"/>
+          <ellipse cx="9" cy="13" rx="2.2" ry="3.5" fill="white" opacity="0.9"/>
+          <ellipse cx="17" cy="13" rx="2.2" ry="3.5" fill="white" opacity="0.9"/>
+          <circle cx="9" cy="14" r="2" fill="#1A0808"/>
+          <circle cx="17" cy="14" r="2" fill="#1A0808"/>
+          <circle cx="10" cy="12.5" r="0.8" fill="white"/>
+          <circle cx="18" cy="12.5" r="0.8" fill="white"/>
+          <path d="M9 19C10.5 21.5 15.5 21.5 17 19" stroke="#96281B" stroke-width="1.5" stroke-linecap="round"/>
+          <ellipse cx="7" cy="21" rx="3" ry="1.8" fill="#C82020" opacity="0.4"/>
+          <ellipse cx="19" cy="21" rx="3" ry="1.8" fill="#C82020" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="msg-inner">
+          <div class="bbl">¡Hola! Soy <strong>Gotita</strong>, la asistente de VidaRed 🩸 Estoy acá para resolver todas tus dudas sobre donar sangre o médula ósea. ¿En qué te puedo ayudar?</div>
+          <div class="mt">ahora</div>
+        </div>
+      </div>
+    </div>
+    <div class="sugs">
+      <button class="sg2" onclick="sug('¿Duele donar sangre?')">¿Duele donar?</button>
+      <button class="sg2" onclick="sug('¿Puedo donar si tomo medicamentos?')">Medicamentos</button>
+      <button class="sg2" onclick="sug('¿Cada cuánto puedo donar?')">Frecuencia</button>
+      <button class="sg2" onclick="sug('¿Qué es donar médula ósea?')">Médula ósea</button>
+      <button class="sg2" onclick="sug('¿Puedo donar si tengo tatuajes?')">Tatuajes</button>
+      <button class="sg2" onclick="sug('¿Qué requisitos necesito para donar?')">Requisitos</button>
+    </div>
+    <div class="ci2">
+      <input id="ci" type="text" placeholder="Preguntale algo a Gotita..." onkeydown="if(event.key==='Enter')send()">
+      <button class="sb" onclick="send()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="tst"></div>
+
+<script>
+// ── NAV ──
+function go(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('vis'));
+  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('vis');
+  const ids=['dash','map','sched','iv','chat'];
+  const i=ids.indexOf(id);
+  if(i>=0)document.querySelectorAll('.nt')[i].classList.add('on');
+  if(id==='map')drawMap();
+  if(id==='sched')buildCal();
+  if(id==='iv')initIV();
+}
+
+// ── TOAST ──
+function toast(m){
+  const t=document.getElementById('tst');
+  t.textContent=m;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+// ── MAP ──
+const centers=[
+  {n:'Hospital Italiano',t:'h',a:'Gascon 450, Palermo',d:'0.8 km',lat:.30,lng:.24,h:'Lun-Sáb 7-13hs',s:12},
+  {n:'Centro Médico Belgrano',t:'c',a:'Virrey del Pino 2433',d:'1.4 km',lat:.18,lng:.54,h:'Lun-Vie 8-17hs',s:8},
+  {n:'Fund. Hematológica',t:'h',a:'Araoz 2571, Recoleta',d:'2.1 km',lat:.52,lng:.42,h:'Lun-Vie 7-14hs',s:5},
+  {n:'Unidad Móvil',t:'m',a:'Plaza Italia, Palermo',d:'2.6 km',lat:.36,lng:.62,h:'Mar-Jue 9-15hs',s:20},
+  {n:'Hospital Rivadavia',t:'c',a:'Av. Las Heras 2670',d:'3.0 km',lat:.64,lng:.32,h:'Lun-Sáb 6-12hs',s:3},
+];
+let selC=0;
+
+function drawMap(){
+  const cv=document.getElementById('mc');
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  cv.width=cv.parentElement.offsetWidth||700;
+  cv.height=240;
+  const W=cv.width,H=cv.height;
+  ctx.fillStyle='#E8E3DC';ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#D5CFC8';ctx.lineWidth=18;
+  [[0,.37,1,.37],[0,.62,1,.62],[.30,0,.30,1],[.57,0,.57,1],[.13,0,.13,1]].forEach(([x1,y1,x2,y2])=>{
+    ctx.beginPath();ctx.moveTo(x1*W,y1*H);ctx.lineTo(x2*W,y2*H);ctx.stroke();
+  });
+  ctx.strokeStyle='#CCC8C0';ctx.lineWidth=8;
+  [[0,.20,1,.20],[0,.80,1,.80],[.45,0,.45,1]].forEach(([x1,y1,x2,y2])=>{
+    ctx.beginPath();ctx.moveTo(x1*W,y1*H);ctx.lineTo(x2*W,y2*H);ctx.stroke();
+  });
+  ctx.fillStyle='#D4EFC7';ctx.beginPath();ctx.arc(.72*W,.54*H,34,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#C8E8BA';ctx.beginPath();ctx.arc(.78*W,.62*H,20,0,Math.PI*2);ctx.fill();
+  centers.forEach((c,i)=>{
+    const x=c.lng*W,y=c.lat*H;
+    const col=c.t==='h'?'#C0392B':c.t==='m'?'#27AE60':'#2980B9';
+    if(i===selC){
+      ctx.fillStyle='rgba(192,57,43,.15)';ctx.beginPath();ctx.arc(x,y,22,0,Math.PI*2);ctx.fill();
+    }
+    ctx.fillStyle=i===selC?'#1A0A08':col;
+    ctx.beginPath();ctx.arc(x,y,i===selC?12:9,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='white';
+    ctx.font='bold '+(i===selC?'10':'8')+'px DM Sans,sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(i+1,x,y);
+    if(i===selC){
+      ctx.strokeStyle=col;ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.arc(x,y,16,0,Math.PI*2);ctx.stroke();
+    }
+  });
+  ctx.fillStyle='rgba(26,10,8,.8)';ctx.strokeStyle='white';ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(.5*W,.5*H,7,0,Math.PI*2);ctx.fill();ctx.stroke();
+  buildClist();
+}
+
+function buildClist(){
+  const icons={h:'🏥',c:'🏨',m:'🚐'};
+  document.getElementById('clist').innerHTML=centers.map((c,i)=>`
+    <div class="ci ${i===selC?'sel':''}" onclick="selCenter(${i})">
+      <div class="cp ${c.t}">${icons[c.t]}</div>
+      <div class="ci-i"><h4>${c.n}</h4><p>${c.a}</p></div>
+      <div class="cd">${c.d}</div>
+    </div>`).join('');
+  const cc=centers[selC];
+  const el=document.getElementById('ccrd');
+  el.innerHTML=`<div class="cc">
+    <h3>📍 ${cc.n}</h3>
+    <p style="font-size:12px;color:var(--muted);margin-top:4px">${cc.a}</p>
+    <div class="chips">
+      <span class="chip">⏰ ${cc.h}</span>
+      <span class="chip g">✅ ${cc.s} turnos disponibles</span>
+    </div>
+    <div class="row2">
+      <button class="bp" style="margin:0;padding:9px 14px;font-size:12px" onclick="go('sched')">Agendar aquí</button>
+      <button class="bs" onclick="toast('Abriendo navegación en maps...')">Cómo llegar</button>
+    </div>
+  </div>`;
+}
+
+function selCenter(i){selC=i;drawMap();}
+
+// ── CALENDAR ──
+let selDay=null,selSlot=null;
+const meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const dias=['D','L','M','X','J','V','S'];
+
+function buildCal(){
+  const now=new Date(),yr=now.getFullYear(),mo=now.getMonth();
+  const fd=new Date(yr,mo,1).getDay(),td=new Date(yr,mo+1,0).getDate();
+  const g=document.getElementById('cal');if(!g)return;
+  const hdr=`<div style="grid-column:1/-1;text-align:center;font-size:13px;font-weight:500;padding:3px 0;margin-bottom:3px">${meses[mo]} ${yr}</div>`;
+  const dh=dias.map(d=>`<div class="ch">${d}</div>`).join('');
+  const bl='<div></div>'.repeat(fd);
+  const dc=Array.from({length:td},(_,i)=>{
+    const d=i+1;
+    const isT=d===now.getDate(),isP=d<now.getDate();
+    const isW=((fd+i)%7===0)||((fd+i)%7===6);
+    const dis=isP||isW,sel=selDay===d;
+    return `<div class="cd2 ${dis?'dis':sel?'ss':'av'} ${isT&&!sel?'tod':''}" onclick="${dis?'':'selDay('+d+')'}">${d}</div>`;
+  }).join('');
+  g.innerHTML=hdr+dh+bl+dc;
+}
+
+function selDay(d){
+  selDay=d;selSlot=null;buildCal();
+  document.getElementById('slrow').style.display='block';
+  const slots=['8:00','8:30','9:00','9:30','10:00','11:30','12:00'];
+  const unav=[1,4];
+  document.getElementById('slgrid').innerHTML=slots.map((s,i)=>
+    `<div class="sl ${unav.includes(i)?'no':''}" onclick="${unav.includes(i)?'':'selSlot(\''+s+'\')'}">${unav.includes(i)?'❌':'⏰'} ${s}</div>`
+  ).join('');
+  document.getElementById('confarea').style.display='none';
+}
+
+function selSlot(s){
+  selSlot=s;
+  document.querySelectorAll('.sl').forEach(e=>{
+    e.classList.remove('on');
+    if(e.textContent.includes(s))e.classList.add('on');
+  });
+  document.getElementById('confarea').style.display='block';
+}
+
+function confirmBook(){
+  if(!selDay||!selSlot){toast('Por favor elegí fecha y horario');return;}
+  const tipo=document.getElementById('dtyp').value;
+  const centro=document.getElementById('csel').value;
+  toast(`✅ Turno confirmado: ${tipo} · ${selDay}/05 a las ${selSlot}hs`);
+  setTimeout(()=>go('dash'),900);
+}
+
+// ── INTERVIEW ──
+const qs=[
+  {q:'¿Cuántos años tenés?',o:['Menos de 16 años','Entre 16 y 18 (con autorización)','Entre 18 y 65 años','Más de 65 años'],ok:[1,2]},
+  {q:'¿Cuánto pesás aproximadamente?',o:['Menos de 50 kg','Entre 50 y 60 kg','Más de 60 kg'],ok:[1,2]},
+  {q:'En los últimos 6 meses, ¿recibiste alguna transfusión de sangre?',o:['Sí','No'],ok:[1]},
+  {q:'¿Te hiciste algún tatuaje o piercing en los últimos 12 meses?',o:['Sí, en los últimos 6 meses','Sí, hace más de 6 meses en lugar habilitado','No'],ok:[1,2]},
+  {q:'¿Tomás algún medicamento regularmente?',o:['Antibióticos (últimos 7 días)','Aspirina o antiinflamatorios','Anticoagulantes','No tomo medicamentos'],ok:[1,3]},
+  {q:'¿Cómo te sentís hoy?',o:['Con fiebre o síntomas gripales','Con cansancio o malestar general','Con resfrío leve','Muy bien, con energía'],ok:[2,3]},
+  {q:'¿Dormiste bien anoche (mínimo 5 horas)?',o:['Menos de 4 horas','Entre 4 y 5 horas','Más de 5 horas'],ok:[1,2]},
+  {q:'¿Cuándo fue tu última comida?',o:['Hace menos de 2 horas','Hace entre 2 y 4 horas','Hace más de 4 horas'],ok:[0,1,2]},
+];
+let curQ=0,ans=[];
+
+function initIV(){curQ=0;ans=[];renderQ();}
+
+function renderQ(){
+  const el=document.getElementById('ivc'),nav=document.getElementById('ivnav');
+  document.getElementById('pf').style.width=Math.round(curQ/qs.length*100)+'%';
+  if(curQ>=qs.length){showRes();return;}
+  const q=qs[curQ];
+  el.innerHTML=`<div class="qc">
+    <div class="qn">Pregunta ${curQ+1} de ${qs.length}</div>
+    <div class="qt">${q.q}</div>
+    <div class="ao">${q.o.map((o,i)=>`<div class="op ${ans[curQ]===i?'on':''}" onclick="selAns(${i})">${o}</div>`).join('')}</div>
+  </div>`;
+  nav.style.display='flex';
+  document.getElementById('pbtn').style.display=curQ>0?'block':'none';
+  document.getElementById('nbtn').textContent=curQ===qs.length-1?'Ver resultado →':'Siguiente →';
+}
+
+function selAns(i){ans[curQ]=i;renderQ();}
+function nextQ(){if(ans[curQ]===undefined){toast('Por favor respondé la pregunta');return;}curQ++;renderQ();}
+function prevQ(){if(curQ>0){curQ--;renderQ();}}
+
+function showRes(){
+  document.getElementById('pf').style.width='100%';
+  document.getElementById('ivnav').style.display='none';
+  let sc=0;
+  qs.forEach((q,i)=>{if(q.ok.includes(ans[i]))sc++;});
+  const p=sc/qs.length;
+  let icon,cls,tit,msg;
+  if(p>=.85){icon='✓';cls='a';tit='¡Podés donar!';msg='Pasaste el pre-cuestionario. Llevalo completo el día de tu turno. ¡Gracias por tu gesto de vida!';}
+  else if(p>=.6){icon='?';cls='c';tit='Consultar antes de donar';msg='Hay algunas respuestas que requieren evaluación médica presencial. Podés agendarte igual, pero el médico hará la evaluación final.';}
+  else{icon='✗';cls='n';tit='No podés donar hoy';msg='Algunas de tus respuestas indican que por el momento no es recomendable donar. Volvé cuando tu condición mejore.';}
+  document.getElementById('ivc').innerHTML=`<div class="rc">
+    <div class="ri ${cls}">${icon}</div>
+    <h2 style="font-family:'Fraunces',serif;font-size:1.25rem;margin-bottom:8px">${tit}</h2>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:1.5rem">${msg}</p>
+    ${cls==='a'?`<button class="bp" style="margin:0" onclick="go('sched')">Agendar mi turno</button>`:
+    `<button class="bs" style="width:100%;text-align:center" onclick="initIV()">Volver a empezar</button>`}
+  </div>`;
+}
+
+// ── CHAT IA ──
+const gotitaSVG=`<svg viewBox="0 0 26 26" fill="none"><defs><linearGradient id="gc" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0%" stop-color="#E84040"/><stop offset="100%" stop-color="#B22020"/></linearGradient></defs>
+<path d="M13 1C13 1 2 9 2 15C2 21 7 25 13 25C19 25 24 21 24 15C24 9 13 1Z" fill="url(#gc)" stroke="#96281B" stroke-width="1"/>
+<ellipse cx="9" cy="13" rx="2.2" ry="3.5" fill="white" opacity="0.9"/>
+<ellipse cx="17" cy="13" rx="2.2" ry="3.5" fill="white" opacity="0.9"/>
+<circle cx="9" cy="14" r="2" fill="#1A0808"/><circle cx="17" cy="14" r="2" fill="#1A0808"/>
+<circle cx="10" cy="12.5" r="0.8" fill="white"/><circle cx="18" cy="12.5" r="0.8" fill="white"/>
+<path d="M9 19C10.5 21.5 15.5 21.5 17 19" stroke="#96281B" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="7" cy="21" rx="3" ry="1.8" fill="#C82020" opacity="0.4"/>
+<ellipse cx="19" cy="21" rx="3" ry="1.8" fill="#C82020" opacity="0.4"/>
+</svg>`;
+
+const kb={
+  duele:'🟢 <strong>MITO:</strong> Donar sangre duele muy poco. Solo sentís el pinchazo inicial, similar a un análisis de sangre. El proceso dura entre 8 y 10 minutos y la mayoría no siente molestias significativas.',
+  medicamento:'Depende del medicamento. Los antibióticos requieren esperar 7 días tras terminar el tratamiento. La aspirina puede afectar las plaquetas pero no la sangre total. Los anticoagulantes sí contraindican la donación. ¡Consultá al médico del centro antes!',
+  cuanto:'Podés donar sangre total cada <strong>2 meses</strong> si sos mujer y cada <strong>3 meses</strong> si sos varón. Para plaquetas (aféresis), cada 15 días. La médula ósea es un proceso diferente y más puntual.',
+  medula:'Donar médula ósea significa registrarte como donante potencial con una simple extracción de sangre. Si hay compatibilidad con un paciente, el procedimiento puede ser por aspiración o por sangre periférica. Solo el 1-2% de los registrados son llamados a donar.',
+  tatuaje:'Si te hiciste un tatuaje o piercing hace menos de 6 meses en un lugar no habilitado, debés esperar. Si fue en lugar habilitado y pasaron más de 6 meses, ¡podés donar sin problema!',
+  alcohol:'Si tomaste alcohol en las últimas 24-48 horas, no podés donar. El alcohol afecta la calidad de la sangre y puede ser perjudicial para el receptor.',
+  requisito:'Para donar necesitás: tener entre 18 y 65 años, pesar más de 50 kg, estar en buen estado de salud, traer tu DNI, haber dormido más de 5 horas y no estar en ayunas total (comé algo liviano antes).',
+  engordar:'🟢 <strong>MITO:</strong> Donar sangre no engorda ni adelgaza. Tu cuerpo regenera el volumen sanguíneo en 24-48 horas. Los glóbulos rojos se reponen en 4 a 8 semanas.',
+  contagio:'🟢 <strong>MITO ABSOLUTO:</strong> Es imposible contagiarse de nada al donar sangre. Se usan agujas y materiales estériles de un solo uso que se descartan de inmediato.',
+  tiempo:'El proceso completo dura unos <strong>30-40 minutos</strong>: registro (5 min), evaluación médica (10 min), extracción (8-10 min) y recuperación con refrigerio (15 min).',
+  default:'Buena pregunta. Podés consultarme sobre: requisitos para donar, mitos frecuentes, tipos de donación, frecuencia, tatuajes, medicamentos, duración del proceso y más. ¿Qué más querés saber?'
+};
+
+function getResp(m){
+  const t=m.toLowerCase();
+  if(t.includes('duele')||t.includes('dolor'))return kb.duele;
+  if(t.includes('medic'))return kb.medicamento;
+  if(t.includes('cuánto')||t.includes('frecuencia')||t.includes('cada'))return kb.cuanto;
+  if(t.includes('médula')||t.includes('medula'))return kb.medula;
+  if(t.includes('tatua')||t.includes('piercing'))return kb.tatuaje;
+  if(t.includes('alcohol')||t.includes('tomé')||t.includes('bebid'))return kb.alcohol;
+  if(t.includes('requisito')||t.includes('necesito')||t.includes('puedo'))return kb.requisito;
+  if(t.includes('engordar')||t.includes('peso')||t.includes('adelgaz'))return kb.engordar;
+  if(t.includes('contagio')||t.includes('infec'))return kb.contagio;
+  if(t.includes('tiempo')||t.includes('tarda')||t.includes('demora'))return kb.tiempo;
+  return kb.default;
+}
+
+async function send(){
+  const inp=document.getElementById('ci');
+  const m=inp.value.trim();if(!m)return;
+  inp.value='';
+  addMsg(m,'u');
+  const typ=addTyp();
+  try{
+    // Llama al proxy seguro del servidor (el API Key nunca sale del backend)
+    const res=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:m})
+    });
+    const d=await res.json();
+    typ.remove();
+    if(d.reply){addMsg(d.reply,'b');}
+    else{addMsg(getResp(m),'b');}
+  }catch(e){
+    typ.remove();
+    addMsg(getResp(m),'b');
+  }
+}
+
+function sug(t){document.getElementById('ci').value=t;send();}
+
+function addMsg(txt,role){
+  const el=document.getElementById('msgs');
+  const now=new Date(),h=now.getHours(),mi=now.getMinutes();
+  const time=h+':'+(mi<10?'0':'')+mi;
+  const d=document.createElement('div');
+  d.className=`msg ${role}`;
+  if(role==='b'){
+    d.innerHTML=`<div class="bot-icon">${gotitaSVG}</div>
+      <div class="msg-inner"><div class="bbl">${txt}</div><div class="mt">${time}</div></div>`;
+  } else {
+    d.innerHTML=`<div class="bbl">${txt}</div><div class="mt">${time}</div>`;
+  }
+  el.appendChild(d);
+  el.scrollTop=el.scrollHeight;
+  return d;
+}
+
+function addTyp(){
+  const el=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg b';
+  d.innerHTML=`<div class="bot-icon">${gotitaSVG}</div>
+    <div class="msg-inner"><div class="bbl" style="padding:8px 14px"><div class="typ"><div class="td"></div><div class="td"></div><div class="td"></div></div></div></div>`;
+  el.appendChild(d);
+  el.scrollTop=el.scrollHeight;
+  return d;
+}
+
+// ── INIT ──
+buildCal();
+setTimeout(()=>toast('🩸 ¡Recordatorio! Tu próxima donación es en 12 días'),1800);
+window.addEventListener('resize',()=>{
+  if(document.getElementById('map').classList.contains('vis'))drawMap();
+});
+</script>
+</body>
+</html>
